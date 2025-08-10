@@ -1,61 +1,98 @@
-primary_name: "Your Name"
+primary_name: "Jerry Huang"
 secondary_name: ""
-navbar_name: "Your Name"
+navbar_name: "Jerry Huang"
 
 positions:
-- logo: /assets/images/badges/MIT_Social_circle.png  # Logo is optional
-  name: Position 1 with logo
-- name: Position 2 without logo
+- logo: # /assets/images/badges/MIT_Social_circle.png  # Logo is optional
+  # name: Position 1 with logo
+# - name: Position 2 without logo
 
 
-email: "your@email.com"
+email: huangjerry128@gmail.com
 # cv_link: link-to-your-cv-file
-gscholar: xFmQpf4AAAAJ  # This is an example, replace it with your own Google Scholar ID
-github: your_github_id
-twitter: your_twitter_id  # Do not include the '@' symbol
+# gscholar: xFmQpf4AAAAJ  # This is an example, replace it with your own Google Scholar ID
+github: jh603
+twitter: actuallyjerryh
 # wechat_qrcode: /assets/images/etc/wechat.jpg
 # wechat_prompt: >-
 #   Please tell me your <strong>name</strong> and <strong>affiliation</strong> (current or past) when adding my wechat. Thanks!
-# linkedin: your-linked-in-id
+linkedin: jerryhuang12
 # orcid: 0000-0000-0000-0000
 
-short_bio_text_justify: false
+short_bio_text_justify: true
 short_bio: >-
   <p>
-    A <a href="https://en.wikipedia.org/wiki/Bicolor_cat" target="_blank">bicolor cat</a> is a cat with white fur combined with fur of some other colour, for example solid black, tabby, or colourpointed.
+  I am a Master's student at the University of Illinois at Urbana-Champaign (UIUC) advised by
+  <a href="https://tongzhang-ml.org" target="_blank" rel="noopener noreferrer">Prof. Tong Zhang</a> 
+  and 
+  <a href="https://hmr-lab.github.io/" target="_blank" rel="noopener noreferrer">Prof. Julia Hockenmaier</a>. 
   </p>
   <p>
-    There are various patterns of a bicolour cat. These range from the Van-patterned (colour on the crown of the head 
-    and the tail only) to a solid colour with a throat locket or medallion. Bicolour coats are found in many cat breeds, 
-    as well as being common in domestic longhair and domestic shorthair cats.
+  My research focuses on developing generative models that are not only more intelligent but also reliable. Specifc topics I am currently pursuing include continual learning, curriculum learning, and the design of memory structures and agentic frameworks.
+  </p>
+  <p>
+    Prior to joining UIUC, I received my Bachelors of Science degree in Computer Science at Duke University. I have worked as a quantitative trader at
+    <a href="https://optiver.com/" target="_blank" rel="noopener noreferrer">Optiver US LLC</a>
+    and
+    <a href="https://www.oldmissioncapital.com/" target="_blank" rel="noopener noreferrer">Old Mission Capital</a>,
+    and as a software engineer at
+    <a href="https://www.vectorshift.ai/" target="_blank" rel="noopener noreferrer">VectorShift</a>,
+    <a href="https://www.amazon.com/" target="_blank" rel="noopener noreferrer">Amazon</a>,
+    and
+    <a href="https://vertexprotocol.com/" target="_blank" rel="noopener noreferrer">Vertex Protocol</a>.
+  </p>
+  <p>
+    I am also a classically trained pianist (<a href="/showcase">enjoy</a>).
   </p>
 
-portrait_url: /assets/images/photos/portrait.jpg
-portrait_caption: >-
-  Photo by Manja Vitolic on Unsplash (this caption is optional, comment it out to disable).
+portrait_url: /assets/images/photos/Profile_pic.png
+# portrait_caption: >-
+  # Photo by Manja Vitolic on Unsplash (this caption is optional, comment it out to disable).
 
 education:
-- name: Massachusetts Institute of Technology
-  logo: /assets/images/badges/MIT_Social_circle.png
+- name: University of Illinois at Urbana-Champaign
+  logo: /assets/images/badges/apple-icon-57x57.png
   position: >- 
-    Department of Electrical Engineering and Computer Science <br/>
-    Ph.D. Student
-  date: Sep. 2024 - present
-- name: Peking University
-  logo: /assets/images/badges/PKU_red.png
+    Department of Computer Science <br/>
+    M.S. Student
+  date: Aug. 2024 - present
+- name: Duke University
+  logo: /assets/images/badges/Duke_Athletics_logo.png
   position: B.S. in Computer Science
-  date: Sep. 2019 - Jul. 2021
+  date: Aug. 2018 - May 2022
 
-# experience:
-# - name: Peking University
-#   logo: /assets/images/badges/PKU_red.png
-#   position: Research Intern
-#   date: Sep. 2019 - Jul. 2021
+experience:
+  - name: NewsBreak
+    logo: /assets/images/badges/newsbreak.png
+    position: AI Research Intern
+    date: Jun. 2024 - Feb. 2025
+
+  - name: VectorShift
+    logo: /assets/images/badges/vectorshift.png
+    position: Founding Software Engineer
+    date: Oct. 2023 - May. 2024
+
+  - name: Old Mission
+    logo: /assets/images/badges/omc.png
+    position: Quantitative Trader
+    date: Aug. 2022 - Aug. 2023
+
+  - name: Secureframe
+    logo: /assets/images/badges/secureframe.png
+    position: Software Engineering Intern
+    date: Jan. 2022 - Apr. 2022
+
+  - name: Optiver
+    logo: /assets/images/badges/optiver.png
+    position: Quantitative Trading Intern
+    date: Jun. 2021 - Aug. 2021
+
+  - name: Amazon
+    logo: /assets/images/badges/amazon.png
+    position: Software Engineering Intern
+    date: May. 2020 - Jul. 2020
 
 awards:
-- name: Award Name 2
-  date: 2024
-- name: Award Name 1 
-  date: 2021
-- name: A quick brown fox jumps over the lazy dog and runs away award
-  date: 2021
+- name: 5x American Invitational Mathematics Exam (AIME)
+- name: Performaned at Carnegie Hall
+- name: Regents’ and Chancellor’s Scholarship, Berkeley
