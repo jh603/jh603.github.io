@@ -18,5 +18,5 @@ authors:
   - Jerry Huang
   - Tong Zhang
 links:
-  # link: https://arxiv.org/abs/2503.12759
+  link: https://arxiv.org/abs/2507.08870
 ---
