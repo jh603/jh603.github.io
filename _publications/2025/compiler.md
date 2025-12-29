@@ -9,7 +9,7 @@ selected:       true
 # pub_date:       "2020"
 
 abstract: >-
-  I spent a semester at Duke learning to write a compiler from scratch.
+  A Tiger to MIPS compiler written in SML.
 cover:          /assets/images/covers/tiger_compiler.png
 authors:
 
