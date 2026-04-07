@@ -4,7 +4,7 @@ date:           2025-05-25 00:01:00 +0800
 selected:       true
 # pub:            "International Conference on Machine Learning (ICML)"
 # pub_pre:        "Submitted to "
-pub_post:       'To appear in EACL 2026.'
+pub_post:       'EACL 2026 Findings'
 # pub_last:       ' <span class="badge badge-pill badge-publication badge-success">Spotlight</span>'
 pub_date:       ""
 

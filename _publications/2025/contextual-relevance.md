@@ -4,9 +4,9 @@ date:           2025-04-25 00:01:00 +0800
 selected:       true
 # pub:            "International Conference on Machine Learning (ICML)"
 # pub_pre:        "Submitted to "
-pub_post:       'Under review.'
+pub_post:       'ACL 2026 Main Conference.'
 # pub_last:       ' <span class="badge badge-pill badge-publication badge-success">Spotlight</span>'
-pub_date:       "2025"
+pub_date:       ""
 
 abstract: >-
   We investigate the context-dependent nature of LLM-based relevance judgements in the document reranking setting.
