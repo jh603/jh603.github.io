@@ -1,22 +1,25 @@
 main:
 
-  - title: Continual Learning for Abdominal Multi-Organ and Tumor Segmentation
-    authors: Yixiao Zhang, Xinyi Li, Huimiao Chen, Alan Yuille, <strong>Yaoyao Liu*</strong>, Zongwei Zhou* (*Corresponding authors)
-    conference_short: MICCAI
-    conference: International Conference on Medical Image Computing and Computer-Assisted Intervention <strong>(MICCAI)</strong>, 2023.
-    pdf: https://arxiv.org/pdf/2306.00988.pdf
-    code: https://github.com/MrGiovanni/ContinualLearning
-    bibtex: https://bib.yliu.me/MICCAI23.txt
-    image: ./assets/img/teaser_example_2.png
-    notes: Early Accept
+  - title: "Contextual Relevance: Modeling Context-Conditioned Relevance for Improving Document Reranking"
+    authors: <strong>Jerry Huang</strong>, Siddarth Madala, Cheng Niu, Julia Hockenmaier, Tong Zhang
+    conference_short: ACL
+    conference: ACL 2026 Main Conference
+    pdf: https://arxiv.org/pdf/2511.01208
+    page: https://arxiv.org/abs/2511.01208
+    image: ./assets/img/contextual-relevance.png
 
-  - title: "Mnemonics Training: Multi-Class Incremental Learning without Forgetting"
-    authors: <strong>Yaoyao Liu</strong>, Yuting Su, An-An Liu, Bernt Schiele, Qianru Sun
-    conference_short: CVPR
-    conference: IEEE/CVF Conference on Computer Vision and Pattern Recognition <strong>(CVPR)</strong>, 2020.
-    pdf: https://arxiv.org/pdf/2002.10211.pdf
-    code: https://github.com/yaoyao-liu/class-incremental-learning/tree/main/mnemonics-training
-    page: https://class-il.mpi-inf.mpg.de/mnemonics/
-    bibtex: https://class-il.mpi-inf.mpg.de/mnemonics/
-    notes: Oral Presentation
-    image: ./assets/img/teaser_example.png
+  - title: "GUIDE: Towards Scalable Advising for Research Ideas"
+    authors: Yaowenqi Liu, BingXu Meng, Rui Pan, <strong>Jerry Huang</strong>, Tong Zhang
+    conference_short: ACL
+    conference: ACL 2026 Main Conference
+    pdf: https://arxiv.org/pdf/2507.08870
+    page: https://arxiv.org/abs/2507.08870
+    image: ./assets/img/guide.png
+
+  - title: "RAG-RL: Advancing Retrieval-Augmented Generation via RL and Curriculum Learning"
+    authors: <strong>Jerry Huang</strong>, Siddarth Madala, Risham Sidhu, Cheng Niu, Hao Peng, Julia Hockenmaier, Tong Zhang
+    conference_short: EACL
+    conference: EACL 2026 Findings
+    pdf: https://arxiv.org/pdf/2503.12759
+    page: https://arxiv.org/abs/2503.12759
+    image: ./assets/img/rag-rl.png

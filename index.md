@@ -4,20 +4,13 @@ layout: homepage
 
 ## About Me
 
-I am a Ph.D. student at ...
+I am a Ph.D. student at the University of Illinois at Urbana-Champaign (UIUC), advised by [Prof. Julia Hockenmaier](https://hmr-lab.github.io/). I'm interested in generative AI models grounded in real-world and physical world priors.
 
-## Research Interests
+Previously, during my Master's, I was advised by [Prof. Tong Zhang](https://tongzhang-ml.org). I've worked at: <strong><a href="https://modusaudit.com/">Modus</a></strong> &middot; <strong><a href="https://www.newsbreak.com/">NewsBreak</a></strong> &middot; <strong><a href="https://www.vectorshift.ai/">VectorShift</a></strong> &middot; <strong><a href="https://www.oldmissioncapital.com/">Old Mission</a></strong> &middot; <strong><a href="https://vertexprotocol.com/">Vertex</a></strong> &middot; <strong><a href="https://optiver.com/">Optiver</a></strong> &middot; <strong><a href="https://www.amazon.com/">Amazon</a></strong>
 
-- **Computer Vision:** image recognition, image generation, video captioning
-- **Machine Learning:** meta-learning, incremental learning, transfer learning
+## Education
 
-## News
-
-- **[Feb. 2020]** Our paper about incremental learning is accepted to CVPR 2020.
-- **[Feb. 2020]** We will host the ACM Multimedia Asia 2020 conference in Singapore!
-- **[Sept. 2019]** Our paper about few-shot learning is accepted to NeurIPS 2019.
-- **[Mar. 2019]** Our paper about few-shot learning is accepted to CVPR 2019.
+- **University of Illinois at Urbana-Champaign**, Department of Computer Science, Ph.D. Student (Aug. 2024 - present)
+- **Duke University**, B.S. in Computer Science (Aug. 2018 - May 2022)
 
 {% include_relative _includes/publications.md %}
-
-{% include_relative _includes/services.md %}
