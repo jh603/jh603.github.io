@@ -1,0 +1,721 @@
+---
+---
+
+/*
+ * Local overrides, loaded after the theme so upstream files stay untouched.
+ *
+ * The page is a full-viewport wave field followed by the conventional page.
+ * The field is an entrance, never the only route to anything: every paper in
+ * it also appears in the publication list below.
+ *
+ * Typographic system:
+ *   1. Serif reads, mono labels. Crimson Pro carries content; Ubuntu Mono is
+ *      reserved for structure and metadata so the two never compete.
+ *   2. One accent. Headings are ink; colour marks links and nodes only.
+ *   3. Titles lead. Section headings are small uppercase labels, so the
+ *      largest text in the column is always a paper title.
+ */
+
+:root {
+  --ink:         #1b1a18;
+  --body:        #3d3a36;
+  --muted:       #8b867e;
+  --faint:       #b3ada4;
+  --read:        #302d29;
+  --paper:       #fdfcfa;
+  --accent:      #17466e;
+  --accent-soft: rgba(23, 70, 110, 0.28);
+  --rule:        #e5e0d8;
+  --plate:       #ffffff;
+
+  --scrim-a: rgba(253, 252, 250, 0.97);
+  --scrim-b: rgba(253, 252, 250, 0.86);
+  --scrim-c: rgba(253, 252, 250, 0.00);
+
+  --global-theme-color:      #17466e;
+  --global-bg-color:         #fdfcfa;
+  --global-text-color:       #1b1a18;
+  --global-text-color-light: #8b867e;
+  --global-hover-color:      #17466e;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink:         #eae7e1;
+    --body:        #adaaa3;
+    --muted:       #7b766e;
+    --faint:       #5c5850;
+    --read:        #d2cec7;
+    --paper:       #16161a;   /* never pure black */
+    --accent:      #8ab4d4;   /* desaturated; the theme cyan is far too loud */
+    --accent-soft: rgba(138, 180, 212, 0.30);
+    --rule:        #2b2b32;
+    --plate:       #e9e6e0;
+
+    --scrim-a: rgba(22, 22, 26, 0.97);
+    --scrim-b: rgba(22, 22, 26, 0.88);
+    --scrim-c: rgba(22, 22, 26, 0.00);
+
+    --global-theme-color:      #8ab4d4;
+    --global-bg-color:         #16161a;
+    --global-text-color:       #eae7e1;
+    --global-text-color-light: #7b766e;
+    --global-hover-color:      #8ab4d4;
+  }
+}
+
+/* ---------- base ---------- */
+
+body {
+  background-color: var(--paper);
+  color: var(--body);
+  font: 400 17px/1.62 "Crimson Pro", Garamond, Georgia, serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+p, ul, ol { margin: 0 0 1.05em; }
+section ul, section ol { padding-left: 1.1em; }
+section li { margin-bottom: 0.28em; }
+
+strong, b { color: var(--ink); font-weight: 600; }
+small { font-size: 12px; color: var(--faint); }
+hr { background: var(--rule); }
+
+/* ---------- landing field ---------- */
+
+#field {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;             /* correct under mobile browser chrome */
+  overflow: hidden;
+}
+
+#field-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+#field.ready #field-canvas { opacity: 1; }
+
+/* Text over a live simulation needs a calm ground. The scrim fades out well
+   before the nodes, so the field is still fully visible where it matters. */
+#field::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    var(--scrim-a) 0%,
+    var(--scrim-a) 22%,
+    var(--scrim-b) 34%,
+    var(--scrim-c) 52%
+  );
+}
+
+#field-overlay {
+  position: absolute;
+  left: 6%;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 27rem;
+  z-index: 3;
+  pointer-events: none;       /* the field stays probeable behind it */
+}
+
+#field-overlay a { pointer-events: auto; }
+
+#field-overlay h1 {
+  font-family: "Crimson Pro", Garamond, Georgia, serif;
+  font-size: clamp(36px, 5vw, 62px);
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: 0.005em;
+  color: var(--ink);
+  margin: 0 0 0.4rem;
+}
+
+.field-role {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--body);
+  margin: 0 0 1.5rem;
+}
+
+.field-icons {
+  display: flex;
+  align-items: center;
+  gap: 1.15rem;
+}
+
+.field-icons a {
+  color: var(--body);
+  font-size: 1.15rem;
+  line-height: 1;
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+.field-icons a:hover,
+.field-icons a:focus-visible { color: var(--accent); }
+
+/* ---------- nodes ---------- */
+
+/* This layer spans the whole viewport above the overlay, so it must be
+   transparent to clicks or it swallows every link underneath it. */
+#field-nodes {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.field-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: block;
+  padding: 26px;
+  border-radius: 50%;
+  text-decoration: none;
+  outline: none;
+  pointer-events: auto;
+}
+
+/* A ring at the scatterer's real radius, so the marker shows the extent of the
+   object the wavefronts are actually breaking around. */
+.field-node::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 54px;
+  height: 54px;
+  margin: -27px 0 0 -27px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  opacity: 0.30;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* The halo is painted in the page colour, so the dot holds its contrast no
+   matter how bright the field behind it happens to be. */
+.field-dot {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.95;
+  box-shadow: 0 0 0 3px var(--paper), 0 0 0 4px var(--accent-soft);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.field-node:hover::before,
+.field-node:focus-visible::before,
+.field-node.active::before { opacity: 0.7; transform: scale(1.12); }
+
+.field-node:hover .field-dot,
+.field-node:focus-visible .field-dot,
+.field-node.active .field-dot { opacity: 1; transform: scale(1.2); }
+
+/* Every label sits below its dot and is left-aligned, so the type reads the
+   same at every node. Only the horizontal anchor changes, and only for nodes
+   close enough to an edge that a centred label would run off screen. */
+.field-label {
+  position: absolute;
+  top: 34px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-5px);
+  width: max-content;
+  max-width: 17rem;
+  padding: 0.55rem 0.8rem;
+  text-align: left;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+  pointer-events: none;
+}
+
+.field-node.anchor-left .field-label {
+  left: 6px;
+  transform: translateX(0) translateY(-5px);
+}
+
+.field-node.anchor-right .field-label {
+  left: auto;
+  right: 6px;
+  transform: translateX(0) translateY(-5px);
+}
+
+.field-node:hover .field-label,
+.field-node:focus-visible .field-label,
+.field-node.active .field-label {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.field-node.anchor-left:hover .field-label,
+.field-node.anchor-left:focus-visible .field-label,
+.field-node.anchor-left.active .field-label,
+.field-node.anchor-right:hover .field-label,
+.field-node.anchor-right:focus-visible .field-label,
+.field-node.anchor-right.active .field-label {
+  transform: translateX(0) translateY(0);
+}
+
+.field-title {
+  display: block;
+  font-family: "Crimson Pro", Garamond, Georgia, serif;
+  font-size: 15.5px;
+  font-weight: 600;
+  line-height: 1.28;
+  color: var(--ink);
+}
+
+.field-meta {
+  display: block;
+  margin-top: 3px;
+  font-family: "Ubuntu Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+/* ---------- scroll cue ---------- */
+
+#field-scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 30px;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  text-decoration: none !important;
+  border-bottom: 0 !important;
+  opacity: 0.9;
+  transition: opacity 0.25s ease;
+}
+#field-scroll:hover,
+#field-scroll:focus-visible { opacity: 1; }
+
+/* This sits at the bottom of the field, past where the scrim reaches, so it
+   needs its own contrast rather than borrowing the page's. */
+.field-scroll-text {
+  font-family: "Ubuntu Mono", monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--read);
+  white-space: nowrap;
+}
+
+.field-scroll-arrow {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid var(--read);
+  border-bottom: 1.5px solid var(--read);
+  transform: rotate(45deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes nudge {
+    0%, 100% { transform: rotate(45deg) translate(0, 0); }
+    50%      { transform: rotate(45deg) translate(2px, 2px); }
+  }
+  .field-scroll-arrow { animation: nudge 2.4s ease-in-out infinite; }
+}
+
+/* ---------- narrow and touch ---------- */
+
+@media screen and (max-width: 860px), screen and (orientation: portrait) {
+  /* The name block moves to the top band, so the scrim has to follow it. */
+  #field::after {
+    background: linear-gradient(
+      to bottom,
+      var(--scrim-a) 0%,
+      var(--scrim-a) 30%,
+      var(--scrim-b) 44%,
+      var(--scrim-c) 62%
+    );
+  }
+
+  #field-overlay {
+    left: 0;
+    right: 0;
+    top: 7%;
+    transform: none;
+    max-width: none;
+    padding: 0 8vw;
+  }
+
+  #field-overlay h1 { font-size: clamp(32px, 9vw, 46px); }
+  .field-role { font-size: 15px; margin-bottom: 1.2rem; }
+  .field-icons { gap: 1.35rem; }
+  .field-icons a { font-size: 1.2rem; }
+
+  .field-node { padding: 22px; }
+  .field-label { top: 30px; max-width: 68vw; }
+}
+
+@media (hover: none) {
+  .field-node { padding: 30px; }
+  .field-dot { width: 16px; height: 16px; }
+}
+
+/* No field on phones. The breakpoint is mirrored in field.js, which then never
+   builds the simulation at all, so nothing is computed behind a hidden canvas.
+   Everything in the field also exists in the page below, so nothing is lost. */
+@media screen and (max-width: 860px) {
+  #field { display: none; }
+}
+
+/* ---------- page layout ----------
+   The theme lays the two columns out with floats and pins the sidebar with
+   position:fixed. That only works when the wrapper starts at the top of the
+   document — with a full-height field above it, the sidebar's static position
+   is a whole viewport down and, being fixed, it never scrolls into view.
+   Flex plus a sticky sidebar does the same job and survives anything above. */
+
+@media screen and (min-width: 961px) {
+  .wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 58px;
+    width: 960px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  header {
+    float: none;
+    position: sticky;
+    top: 24px;
+    flex: 0 0 232px;
+    width: 232px;
+    align-self: flex-start;
+  }
+
+  section {
+    float: none;
+    flex: 1 1 auto;
+    width: auto;
+    max-width: 620px;
+    padding-top: 3.4em;
+  }
+
+  /* Empty in the layout, and it would otherwise take a flex slot. */
+  footer { display: none; }
+}
+
+/* ---------- section labels ----------
+   Uppercase mono with a hairline beneath. These are signposts, not titles:
+   demoting them is what lets the paper titles lead the page. */
+
+section h2 {
+  font-family: "Ubuntu Mono", monospace;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1;
+  margin: 3.4em 0 1.4em;
+  padding-bottom: 0.85em;
+  border-bottom: 1px solid var(--rule);
+}
+
+section h2:first-child { margin-top: 0; }
+
+section h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 1.8em 0 0.4em;
+}
+
+/* ---------- links ---------- */
+
+a { color: var(--accent); text-decoration: none; }
+
+section a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+  text-decoration-color: var(--accent-soft);
+  transition: color 0.18s ease, text-decoration-color 0.18s ease;
+}
+
+section a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+
+.social-icons a,
+.publications ol.bibliography li .links a.btn,
+.publications ol.bibliography li .abbr abbr a,
+.publications ol.bibliography li .title a,
+.past-roles a {
+  text-decoration: none;
+}
+
+/* A run of seven employers should read as one quiet line, not seven shouts. */
+.past-roles { color: var(--muted); font-size: 16px; }
+
+.past-roles a {
+  color: var(--body);
+  border-bottom: 1px solid var(--rule);
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+.past-roles a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.past-roles .sep { color: var(--faint); padding: 0 0.15em; }
+
+/* ---------- sidebar ---------- */
+
+header { padding-top: 5.6em; }
+
+header h1 {
+  font-family: "Crimson Pro", Garamond, Georgia, serif;
+  font-size: 27px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  margin: 0 0 10px;
+}
+
+/* The theme sizes the portrait as a percentage and then pads it inward, which
+   leaves it small and off-centre. Size the frame, not the image. The source is
+   a portrait crop, so a square box plus object-fit gives a true circle rather
+   than the ellipse a bare border-radius would produce. */
+header .image.avatar {
+  display: block;
+  width: 132px;
+  margin: 0 auto 1.5em;
+  border-radius: 50%;
+}
+
+header .image.avatar img {
+  display: block;
+  width: 132px;
+  height: 132px;
+  padding: 0;
+  object-fit: cover;
+  object-position: 50% 32%;
+  border-radius: 50%;
+  border: 1px solid var(--rule);
+}
+
+@media print, screen and (max-width: 960px) {
+  header .image.avatar { width: 108px; }
+  header .image.avatar img { width: 108px; height: 108px; }
+}
+
+position {
+  display: block;
+  color: var(--body);
+  font-size: 16px;
+  line-height: 1.4;
+  margin-bottom: 2px;
+}
+
+/* The affiliation wraps to two lines in a 232px column. A border-bottom on the
+   anchor draws one rule under the whole wrapped block, which reads as a divider
+   rather than a link; underlining the text itself hugs the words instead. */
+header a:not(.image) {
+  text-decoration: none;
+  border-bottom: 0;
+}
+
+autocolor {
+  display: inline-block;
+  color: var(--body);
+  font-size: 15px;
+  line-height: 1.38;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+  text-decoration-color: var(--rule);
+  transition: color 0.18s ease, text-decoration-color 0.18s ease;
+}
+
+header a:not(.image):hover autocolor {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+email {
+  display: inline-block;
+  font-family: "Ubuntu Mono", monospace;
+  font-size: 12.5px;
+  color: var(--faint);
+  letter-spacing: 0.01em;
+  margin-top: 22px;
+}
+
+.social-icons { margin-top: 4px; }
+.social-icons a {
+  color: var(--muted) !important;
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+  margin-right: 0.5rem;
+  border-bottom: 0 !important;
+  transition: color 0.18s ease;
+}
+.social-icons a:hover {
+  color: var(--accent) !important;
+  background-color: transparent;
+  transform: none;
+}
+
+/* ---------- publications ---------- */
+
+.publications { margin-top: 0; }
+/* The theme's template separated entries with <br>; spacing is set here
+   instead, so entries without a teaser are not left cramped. */
+.publications ol.bibliography li { min-height: 0; margin-bottom: 2.6rem; }
+.publications ol.bibliography li:last-child { margin-bottom: 0; }
+
+/* Columns are top-aligned, and the teaser column has a fixed width so every
+   title starts at the same place. Entries with no figure omit the column
+   entirely (see _includes/publications.md) and the text spans the full row. */
+.publications .pub-row { align-items: flex-start; }
+
+.publications ol.bibliography li .abbr {
+  position: relative;
+  flex: 0 0 226px;
+  height: auto;
+  margin-bottom: 0;
+  padding: 4px 16px 0 0;
+}
+
+.publications ol.bibliography li .col-sm-9 {
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 0;
+  padding: 0 0 0 4px;
+}
+
+.publications .pub-row.no-teaser .col-sm-9 { padding-left: 0; }
+
+@media screen and (max-width: 640px) {
+  .publications .pub-row { flex-direction: column; }
+  .publications ol.bibliography li .abbr {
+    flex: 0 0 auto;
+    padding: 0 0 12px 0;
+  }
+  .publications ol.bibliography li .col-sm-9 { padding-left: 0; }
+}
+
+/* Figure teasers are white-ground diagrams. Left raw on a dark page they are
+   the brightest thing on screen; setting them on an explicit plate with a
+   border makes them read as figures rather than as holes punched in the page. */
+.publications ol.bibliography li .teaser {
+  width: 210px;
+  height: 118px;
+  object-fit: cover;
+  background: var(--plate);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  box-shadow: none;
+  margin: 4px 0 0 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  .publications ol.bibliography li .teaser {
+    filter: brightness(0.86) contrast(1.02) saturate(0.92);
+  }
+}
+
+.publications ol.bibliography li .abbr abbr { top: 10px; left: 10px; }
+
+.publications .badge {
+  font-family: "Ubuntu Mono", monospace;
+  font-weight: 400;
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  padding: 0.25em 0.45em;
+  border-radius: 2px;
+  background-color: var(--accent);
+  box-shadow: none;
+  opacity: 0.92;
+}
+
+/* The title is the largest text in the column. */
+.publications ol.bibliography li .title {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ink);
+}
+.publications ol.bibliography li .title a { color: var(--ink); }
+.publications ol.bibliography li .title a:hover { color: var(--accent); }
+
+.publications ol.bibliography li .author {
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--muted);
+  margin-top: 5px;
+}
+.publications ol.bibliography li .author strong {
+  color: var(--body);
+  font-weight: 600;
+}
+
+.publications ol.bibliography li .periodical {
+  font-family: "Ubuntu Mono", monospace;
+  font-size: 11.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-top: 6px;
+}
+.publications ol.bibliography li .periodical em { font-style: normal; }
+
+.publications ol.bibliography li .links { margin-top: 9px; }
+
+/* The template sets font-size inline, so that one declaration needs !important. */
+.publications ol.bibliography li .links a.btn {
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  font-family: "Ubuntu Mono", monospace;
+  font-size: 11px !important;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0.55rem;
+  margin-right: 5px;
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+
+.publications ol.bibliography li .links a.btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ---------- entrance ----------
+   Only the landing animates. The page below is already scrolled to when it is
+   read, so animating it would either be missed or fire at the wrong moment. */
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: none; }
+  }
+  #field-overlay > * {
+    animation: rise 0.7s cubic-bezier(0.22, 0.68, 0.24, 1) backwards;
+  }
+  #field-overlay h1          { animation-delay: 0.10s; }
+  #field-overlay .field-role { animation-delay: 0.18s; }
+  #field-overlay .field-icons { animation-delay: 0.26s; }
+}

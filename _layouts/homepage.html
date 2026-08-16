@@ -5,7 +5,7 @@
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="description" content="{{ site.description }}">
     {% if site.keywords %}
     <meta name="keywords" content="{{ site.keywords }}">
@@ -20,7 +20,7 @@
 
     <link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin=anonymous>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+
     {% if site.font == "Sans Serif" %}
     <link rel="stylesheet" href="./assets/css/font_sans_serif.css">
     {% else %}
@@ -34,11 +34,79 @@
     <link rel="stylesheet" href="./assets/css/publications-no-dark-mode.css">
     {% endif %}
 
+    <!-- Local overrides; must load last. -->
+    <link rel="stylesheet" href="./assets/css/custom.css">
+
   </head>
   <body>
-    <div class="wrapper">
+
+    <div id="field" aria-label="Interactive wave field linking to publications">
+      <canvas id="field-canvas" aria-hidden="true"></canvas>
+
+      <div id="field-overlay">
+        <h1>{{ site.title }}</h1>
+        <p class="field-role">{{ site.position }} &middot; {{ site.affiliation }}</p>
+
+        <div class="field-icons">
+          {% if site.google_scholar %}
+          <a href="{{ site.google_scholar }}" aria-label="Google Scholar" title="Google Scholar" target="_blank" rel="noopener">
+            <i class="ai ai-google-scholar" aria-hidden="true"></i>
+          </a>
+          {% endif %}
+          {% if site.cv_link %}
+          <a href="{{ site.cv_link }}" aria-label="Curriculum vitae" title="CV" target="_blank" rel="noopener">
+            <i class="ai ai-cv" aria-hidden="true"></i>
+          </a>
+          {% endif %}
+          {% if site.github_link %}
+          <a href="{{ site.github_link }}" aria-label="GitHub" title="GitHub" target="_blank" rel="noopener">
+            <i class="fab fa-github" aria-hidden="true"></i>
+          </a>
+          {% endif %}
+          {% if site.linkedin %}
+          <a href="{{ site.linkedin }}" aria-label="LinkedIn" title="LinkedIn" target="_blank" rel="noopener">
+            <i class="fab fa-linkedin" aria-hidden="true"></i>
+          </a>
+          {% endif %}
+          {% if site.twitter %}
+          <a href="{{ site.twitter }}" aria-label="X" title="X" target="_blank" rel="noopener">
+            <i class="fab fa-x-twitter" aria-hidden="true"></i>
+          </a>
+          {% endif %}
+          {% if site.email %}
+          <a href="mailto:{{ site.email | replace: ' (at) ', '@' }}" aria-label="Email" title="Email">
+            <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+
+      <div id="field-nodes"></div>
+
+      <a id="field-scroll" href="#main">
+        <span class="field-scroll-text">Scroll</span>
+        <span class="field-scroll-arrow" aria-hidden="true"></span>
+      </a>
+
+      {%- comment -%}
+        Nodes are generated from _data/publications.yml, so the field can never
+        drift from the publication list below.
+      {%- endcomment -%}
+      {%- capture field_json -%}
+      [
+      {%- for link in site.data.publications.main -%}
+        {"title":{{ link.title | strip_html | jsonify }},
+         "meta":{{ link.conference | jsonify }},
+         "url":{{ link.page | default: link.pdf | jsonify }}}{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+      ]
+      {%- endcapture -%}
+      <script type="application/json" id="field-data">{{ field_json }}</script>
+    </div>
+
+    <div class="wrapper" id="main">
       <header>
-        
+
         {% if site.avatar %}
         <a class="image avatar"><img src="{{ site.avatar }}" alt="avatar" /></a>
         {% endif %}
@@ -46,7 +114,7 @@
         <h1>{{ site.title }}</h1>
 
         {% if site.position %}
-        <position style="font-size:1.10rem;">{{ site.position }}</position>
+        <position>{{ site.position }}</position>
         <br>
         {% endif %}
         {% if site.affiliation %}
@@ -61,31 +129,27 @@
         <br>
         <div class="social-icons">
         {% if site.google_scholar %}
-        <a style="margin: 0 5px 0 0" href="{{ site.google_scholar }}">
+        <a style="margin: 0 5px 0 0" href="{{ site.google_scholar }}" aria-label="Google Scholar">
           <i class="ai ai-google-scholar" style="font-size:1.2rem"></i>
-        </a>  
+        </a>
         {% endif %}
-
         {% if site.cv_link %}
-        <a style="margin: 0 5px 0 0" href="{{ site.cv_link }}">
+        <a style="margin: 0 5px 0 0" href="{{ site.cv_link }}" aria-label="CV">
           <i class="ai ai-cv" style="font-size:1.3rem;"></i>
         </a>
         {% endif %}
-
         {% if site.github_link %}
-        <a style="margin: 0 5px 0 0" href="{{ site.github_link }}">
+        <a style="margin: 0 5px 0 0" href="{{ site.github_link }}" aria-label="GitHub">
           <i class="fab fa-github"></i>
         </a>
         {% endif %}
-
         {% if site.linkedin %}
-        <a style="margin: 0 5px 0 0" href="{{ site.linkedin }}">
+        <a style="margin: 0 5px 0 0" href="{{ site.linkedin }}" aria-label="LinkedIn">
           <i class="fab fa-linkedin"></i>
         </a>
         {% endif %}
-
         {% if site.twitter %}
-        <a style="margin: 0 0 0 0" href="{{ site.twitter }}">
+        <a style="margin: 0 0 0 0" href="{{ site.twitter }}" aria-label="X">
           <i class="fab fa-x-twitter"></i>
         </a>
         {% endif %}
@@ -104,11 +168,10 @@
       {% endif %}
 
       </section>
-      <footer>
-        
-      </footer>
+      <footer></footer>
     </div>
-    <script src="{{ "/assets/js/scale.fix.js" | relative_url }}"></script>
+
+    <script src="{{ "/assets/js/field.js" | relative_url }}" defer></script>
     {% if site.google_analytics %}
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

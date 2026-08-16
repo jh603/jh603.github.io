@@ -1,6 +1,9 @@
+# Author lists are taken verbatim from the arXiv API (export.arxiv.org), not
+# from Google Scholar, whose listings abbreviate first names and truncate long
+# author lists.
 main:
 
-  - title: "Contextual Relevance: Modeling Context-Conditioned Relevance for Improving Document Reranking"
+  - title: "Contextual Relevance and Adaptive Sampling for LLM-Based Document Reranking"
     authors: <strong>Jerry Huang</strong>, Siddarth Madala, Cheng Niu, Julia Hockenmaier, Tong Zhang
     conference_short: ACL
     conference: ACL 2026 Main Conference
@@ -8,18 +11,32 @@ main:
     page: https://arxiv.org/abs/2511.01208
     image: ./assets/img/contextual-relevance.png
 
+  - title: "RAG-RL: Advancing Retrieval-Augmented Generation via RL and Curriculum Learning"
+    authors: <strong>Jerry Huang</strong>, Siddarth Madala, Risham Sidhu, Cheng Niu, Hao Peng, Julia Hockenmaier, Tong Zhang
+    conference_short: EACL
+    conference: Findings of EACL 2026
+    pdf: https://arxiv.org/pdf/2503.12759
+    page: https://arxiv.org/abs/2503.12759
+    image: ./assets/img/rag-rl.png
+
   - title: "GUIDE: Towards Scalable Advising for Research Ideas"
-    authors: Yaowenqi Liu, BingXu Meng, Rui Pan, <strong>Jerry Huang</strong>, Tong Zhang
+    authors: Yaowenqi Liu, Bingxu Meng, Rui Pan, Yuxing Liu, <strong>Jerry Huang</strong>, Jiaxuan You, Tong Zhang
     conference_short: ACL
     conference: ACL 2026 Main Conference
     pdf: https://arxiv.org/pdf/2507.08870
     page: https://arxiv.org/abs/2507.08870
     image: ./assets/img/guide.png
 
-  - title: "RAG-RL: Advancing Retrieval-Augmented Generation via RL and Curriculum Learning"
-    authors: <strong>Jerry Huang</strong>, Siddarth Madala, Risham Sidhu, Cheng Niu, Hao Peng, Julia Hockenmaier, Tong Zhang
-    conference_short: EACL
-    conference: EACL 2026 Findings
-    pdf: https://arxiv.org/pdf/2503.12759
-    page: https://arxiv.org/abs/2503.12759
-    image: ./assets/img/rag-rl.png
+  - title: "AgentSPEX: An Agent SPecification and EXecution Language"
+    authors: Pengcheng Wang, <strong>Jerry Huang</strong>, Jiarui Yao, Rui Pan, Peizhi Niu, Yaowenqi Liu, Ruida Wang, Renhao Lu, Yuwei Guo, Tong Zhang
+    conference_short: arXiv
+    conference: arXiv preprint
+    pdf: https://arxiv.org/pdf/2604.13346
+    page: https://arxiv.org/abs/2604.13346
+
+  - title: "Lean4Agent: Formal Modeling and Verification for Agent Workflow and Trajectory"
+    authors: Ruida Wang, <strong>Jerry Huang</strong>, Pengcheng Wang, Xuanqing Liu, Luyang Kong, Tong Zhang
+    conference_short: arXiv
+    conference: arXiv preprint
+    pdf: https://arxiv.org/pdf/2606.06523
+    page: https://arxiv.org/abs/2606.06523
