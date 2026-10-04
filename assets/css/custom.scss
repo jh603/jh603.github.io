@@ -1,0 +1,432 @@
+---
+---
+
+/*
+ * Local overrides, loaded after the theme so upstream files stay untouched.
+ *
+ * Typographic system:
+ *   1. Serif reads, mono labels. Crimson Pro carries content; Ubuntu Mono is
+ *      reserved for structure and metadata so the two never compete.
+ *   2. One accent. Headings are ink; colour marks links only.
+ *   3. Titles lead. Section headings are small uppercase labels, so the
+ *      largest text in the column is always a paper title.
+ */
+
+:root {
+  --ink:         #1b1a18;
+  --body:        #3d3a36;
+  --muted:       #716c64;
+  --faint:       #b3ada4;
+  --read:        #302d29;
+  --paper:       #fdfcfa;
+  --accent:      #17466e;
+  --accent-soft: rgba(23, 70, 110, 0.28);
+  --rule:        #e5e0d8;
+  --plate:       #ffffff;
+  --dot-color:   27, 26, 24;
+
+
+  --global-theme-color:      #17466e;
+  --global-bg-color:         #fdfcfa;
+  --global-text-color:       #1b1a18;
+  --global-text-color-light: #8b867e;
+  --global-hover-color:      #17466e;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink:         #eae7e1;
+    --body:        #adaaa3;
+    --muted:       #aaa49a;
+    --faint:       #5c5850;
+    --read:        #d2cec7;
+    --paper:       #16161a;   /* never pure black */
+    --accent:      #8ab4d4;   /* desaturated; the theme cyan is far too loud */
+    --accent-soft: rgba(138, 180, 212, 0.30);
+    --rule:        #2b2b32;
+    --plate:       #e9e6e0;
+    --dot-color:   255, 255, 255;
+
+
+    --global-theme-color:      #8ab4d4;
+    --global-bg-color:         #16161a;
+    --global-text-color:       #eae7e1;
+    --global-text-color-light: #7b766e;
+    --global-hover-color:      #8ab4d4;
+  }
+}
+
+/* ---------- base ---------- */
+
+body {
+  background-color: var(--paper);
+  color: var(--body);
+  font: 400 17px/1.62 "Crimson Pro", Garamond, Georgia, serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+p, ul, ol { margin: 0 0 1.05em; }
+section ul, section ol { padding-left: 1.1em; }
+section li { margin-bottom: 0.28em; }
+
+strong, b { color: var(--ink); font-weight: 600; }
+small { font-size: 12px; color: var(--faint); }
+hr { background: var(--rule); }
+
+/* Fixed decorative layer; links and selection remain on the content layer. */
+#ripple-background {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.30;
+}
+
+.wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+@media print, screen and (max-width: 960px) {
+  #ripple-background { display: none; }
+}
+
+/* ---------- page layout ----------
+   Flex columns keep the sidebar sticky alongside the publication list. */
+
+@media screen and (min-width: 961px) {
+  .wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 58px;
+    width: 960px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  header {
+    float: none;
+    position: sticky;
+    top: 24px;
+    flex: 0 0 232px;
+    width: 232px;
+    align-self: flex-start;
+  }
+
+  section {
+    float: none;
+    flex: 1 1 auto;
+    width: auto;
+    max-width: 620px;
+    padding-top: 3.4em;
+  }
+
+  /* Empty in the layout, and it would otherwise take a flex slot. */
+  footer { display: none; }
+}
+
+/* ---------- section labels ----------
+   Uppercase mono with a hairline beneath. These are signposts, not titles:
+   demoting them is what lets the paper titles lead the page. */
+
+section h2 {
+  font-family: "Ubuntu Mono", monospace;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.25;
+  margin: 2.8em 0 1.2em;
+  padding-bottom: 0.85em;
+  border-bottom: 1px solid var(--rule);
+}
+
+section h2:first-child { margin-top: 0; }
+
+section h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 1.8em 0 0.4em;
+}
+
+/* ---------- links ---------- */
+
+a { color: var(--accent); text-decoration: none; }
+
+section a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+  text-decoration-color: var(--accent-soft);
+  transition: color 0.18s ease, text-decoration-color 0.18s ease;
+}
+
+section a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+
+.social-icons a,
+.publications ol.bibliography li .links a.btn,
+.publications ol.bibliography li .abbr abbr a,
+.publications ol.bibliography li .title a,
+.past-roles a {
+  text-decoration: none;
+}
+
+/* A run of seven employers should read as one quiet line, not seven shouts. */
+.past-roles { color: var(--muted); font-size: 16px; }
+
+.past-roles a {
+  color: var(--body);
+  border-bottom: 1px solid var(--rule);
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+.past-roles a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.past-roles .sep { color: var(--faint); padding: 0 0.15em; }
+
+/* ---------- sidebar ---------- */
+
+header { padding-top: 3.4em; }
+
+header h1 {
+  font-family: "Crimson Pro", Garamond, Georgia, serif;
+  font-size: 27px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  margin: 0 0 10px;
+}
+
+/* The theme sizes the portrait as a percentage and then pads it inward, which
+   leaves it small and off-centre. Size the frame, not the image. The source is
+   a portrait crop, so a square box plus object-fit gives a true circle rather
+   than the ellipse a bare border-radius would produce. */
+header .image.avatar {
+  display: block;
+  width: 132px;
+  margin: 0 auto 1.15em;
+  border-radius: 50%;
+}
+
+header .image.avatar img {
+  display: block;
+  width: 132px;
+  height: 132px;
+  padding: 0;
+  object-fit: cover;
+  object-position: 50% 32%;
+  border-radius: 50%;
+  border: 1px solid var(--rule);
+}
+
+@media print, screen and (max-width: 960px) {
+  header .image.avatar { width: 108px; }
+  header .image.avatar img { width: 108px; height: 108px; }
+}
+
+.profile-position {
+  display: block;
+  color: var(--body);
+  font-size: 16px;
+  line-height: 1.4;
+  margin: 0 0 6px;
+}
+
+/* The affiliation wraps to two lines in a 232px column. A border-bottom on the
+   anchor draws one rule under the whole wrapped block, which reads as a divider
+   rather than a link; underlining the text itself hugs the words instead. */
+header a:not(.image) {
+  text-decoration: none;
+  border-bottom: 0;
+}
+
+.profile-affiliation {
+  display: block;
+  max-width: 232px;
+  margin: 0 auto;
+  color: var(--body);
+  font-size: 15px;
+  line-height: 1.38;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+  text-decoration-color: var(--rule);
+  transition: color 0.18s ease, text-decoration-color 0.18s ease;
+}
+
+header a.profile-affiliation:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+.profile-email {
+  display: block;
+  font-family: "Ubuntu Mono", monospace;
+  font-size: 14px;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+  margin: 16px 0 10px;
+}
+
+.social-icons { margin-top: 4px; }
+
+@media print, screen and (max-width: 960px) {
+  header { padding: 24px 0 28px; }
+  section { border-color: var(--rule); padding-top: 28px; }
+}
+
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+.social-icons a {
+  color: var(--ink) !important;
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+  margin-right: 0.5rem;
+  border-bottom: 0 !important;
+  transition: color 0.18s ease;
+}
+.social-icons a:hover,
+.social-icons a:focus-visible {
+  color: var(--accent) !important;
+  background-color: transparent;
+  transform: none;
+}
+
+/* ---------- publications ---------- */
+
+.publications { margin-top: 0; }
+/* The theme's template separated entries with <br>; spacing is set here
+   instead, so entries without a teaser are not left cramped. */
+.publications ol.bibliography li { min-height: 0; margin-bottom: 2.6rem; }
+.publications ol.bibliography li:last-child { margin-bottom: 0; }
+
+/* Columns are top-aligned, and the teaser column has a fixed width so every
+   title starts at the same place. Entries with no figure omit the column
+   entirely (see _includes/publications.md) and the text spans the full row. */
+.publications .pub-row { align-items: flex-start; }
+
+.publications ol.bibliography li .abbr {
+  position: relative;
+  flex: 0 0 190px;
+  height: auto;
+  margin-bottom: 0;
+  padding: 0 20px 0 0;
+  box-sizing: border-box;
+}
+
+.publications ol.bibliography li .col-sm-9 {
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 0;
+  padding: 0 0 0 4px;
+}
+
+.publications .pub-row.no-teaser .col-sm-9 { padding-left: 0; }
+
+@media screen and (max-width: 640px) {
+  .publications .pub-row { flex-direction: column; }
+  .publications ol.bibliography li .abbr {
+    flex: 0 0 auto;
+    padding: 0 0 12px 0;
+  }
+  .publications ol.bibliography li .col-sm-9 { padding-left: 0; }
+}
+
+/* Figure teasers are white-ground diagrams. Left raw on a dark page they are
+   the brightest thing on screen; setting them on an explicit plate with a
+   border makes them read as figures rather than as holes punched in the page. */
+.publications ol.bibliography li .teaser {
+  width: 170px;
+  height: 106px;
+  box-sizing: border-box;
+  padding: 5px;
+  object-fit: contain;
+  background: var(--plate);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  box-shadow: none;
+  margin: 0;
+}
+
+.publications ol.bibliography li .teaser.teaser-contain {
+  object-fit: contain;
+  background: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  .publications ol.bibliography li .teaser {
+    filter: brightness(0.86) contrast(1.02) saturate(0.92);
+  }
+}
+
+.publications ol.bibliography li .abbr abbr { top: 6px; left: 6px; }
+
+.publications .badge {
+  font-family: "Ubuntu Mono", monospace;
+  font-weight: 400;
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  padding: 0.25em 0.45em;
+  border-radius: 2px;
+  background-color: var(--accent);
+  box-shadow: none;
+  opacity: 0.92;
+}
+
+/* The title is the largest text in the column. */
+.publications ol.bibliography li .title {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ink);
+}
+.publications ol.bibliography li .title a { color: var(--ink); }
+.publications ol.bibliography li .title a:hover { color: var(--accent); }
+
+.publications ol.bibliography li .author {
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--muted);
+  margin-top: 5px;
+}
+.publications ol.bibliography li .author strong {
+  color: var(--body);
+  font-weight: 600;
+}
+
+.publications ol.bibliography li .periodical {
+  font-family: "Ubuntu Mono", monospace;
+  font-size: 13px;
+  letter-spacing: 0.01em;
+  color: var(--body);
+  margin-top: 6px;
+}
+.publications ol.bibliography li .periodical em { font-style: normal; }
+
+.publications ol.bibliography li .links { margin-top: 9px; }
+
+.publications ol.bibliography li .links a.btn {
+  color: var(--ink);
+  background-color: var(--paper);
+  border: 1px solid var(--accent-soft);
+  border-radius: 2px;
+  font-family: "Ubuntu Mono", monospace;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  padding: 0.2rem 0.55rem;
+  margin-right: 5px;
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+
+.publications ol.bibliography li .links a.btn:hover,
+.publications ol.bibliography li .links a.btn:focus-visible {
+  color: var(--accent);
+  border-color: var(--accent);
+}

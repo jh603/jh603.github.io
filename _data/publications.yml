@@ -1,0 +1,63 @@
+# Author lists are taken verbatim from the arXiv API (export.arxiv.org), not
+# from Google Scholar, whose listings abbreviate first names and truncate long
+# author lists.
+main:
+
+  # Image source: https://financialauditbench.com/ completion leaderboard,
+  # cropped to the top five models and strict pass rates.
+  - title: "FinancialAuditBench: Benchmark Construction under Differential Privacy Using Real-World Priors"
+    authors: <strong>Jerry Huang</strong>, Sarvesh Babu, Matt Van Buren, Alexander Wang, Pranav Pillai, Arush Jain, James P. Burton, Julia Hockenmaier
+    conference_short: arXiv
+    conference: arXiv preprint, 2026
+    pdf: https://arxiv.org/pdf/2609.32835
+    arxiv: https://arxiv.org/abs/2609.32835
+    page: https://financialauditbench.com/
+    image: ./assets/img/financialauditbench.png
+    image_alt: FinancialAuditBench completion leaderboard showing the top five models and their strict pass rates
+    image_fit: contain
+
+  # Image source: Figure 1, https://arxiv.org/html/2606.06523v2/MainPlot-0505.png
+  - title: "Lean4Agent: Formal Modeling and Verification for Agent Workflow and Trajectory"
+    authors: Ruida Wang, <strong>Jerry Huang</strong>, Pengcheng Wang, Xuanqing Liu, Luyang Kong, Tong Zhang
+    conference_short: NeurIPS
+    conference: To appear at NeurIPS 2026
+    pdf: https://arxiv.org/pdf/2606.06523
+    arxiv: https://arxiv.org/abs/2606.06523
+    image: ./assets/img/lean4agent.png
+    image_alt: Lean4Agent framework with three layers of workflow and trajectory verification and LeanEvolve workflow refinement
+    image_fit: contain
+
+  - title: "Contextual Relevance and Adaptive Sampling for LLM-Based Document Reranking"
+    authors: <strong>Jerry Huang</strong>, Siddarth Madala, Cheng Niu, Julia Hockenmaier, Tong Zhang
+    conference_short: ACL
+    conference: ACL 2026 Main Conference
+    pdf: https://arxiv.org/pdf/2511.01208
+    arxiv: https://arxiv.org/abs/2511.01208
+    image: ./assets/img/contextual-relevance.png
+
+  - title: "RAG-RL: Advancing Retrieval-Augmented Generation via RL and Curriculum Learning"
+    authors: <strong>Jerry Huang</strong>, Siddarth Madala, Risham Sidhu, Cheng Niu, Hao Peng, Julia Hockenmaier, Tong Zhang
+    conference_short: EACL
+    conference: Findings of EACL 2026
+    pdf: https://arxiv.org/pdf/2503.12759
+    arxiv: https://arxiv.org/abs/2503.12759
+    image: ./assets/img/rag-rl.png
+
+  - title: "GUIDE: Towards Scalable Advising for Research Ideas"
+    authors: Yaowenqi Liu, Bingxu Meng, Rui Pan, Yuxing Liu, <strong>Jerry Huang</strong>, Jiaxuan You, Tong Zhang
+    conference_short: ACL
+    conference: ACL 2026 Main Conference
+    pdf: https://arxiv.org/pdf/2507.08870
+    arxiv: https://arxiv.org/abs/2507.08870
+    image: ./assets/img/guide.png
+
+  # Image source: Figure 1, https://arxiv.org/html/2604.13346v1/figures/system_figure.png
+  - title: "AgentSPEX: An Agent SPecification and EXecution Language"
+    authors: Pengcheng Wang, <strong>Jerry Huang</strong>, Jiarui Yao, Rui Pan, Peizhi Niu, Yaowenqi Liu, Ruida Wang, Renhao Lu, Yuwei Guo, Tong Zhang
+    conference_short: arXiv
+    conference: arXiv preprint
+    pdf: https://arxiv.org/pdf/2604.13346
+    arxiv: https://arxiv.org/abs/2604.13346
+    image: ./assets/img/agentspex.png
+    image_alt: AgentSPEX architecture showing agent definitions, workflow step types, and the agent harness with a sandbox environment and durability system
+    image_fit: contain
