@@ -170,21 +170,9 @@ section a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 .social-icons a,
 .publications ol.bibliography li .links a.btn,
 .publications ol.bibliography li .abbr abbr a,
-.publications ol.bibliography li .title a,
-.past-roles a {
+.publications ol.bibliography li .title a {
   text-decoration: none;
 }
-
-/* A run of seven employers should read as one quiet line, not seven shouts. */
-.past-roles { color: var(--muted); font-size: 16px; }
-
-.past-roles a {
-  color: var(--body);
-  border-bottom: 1px solid var(--rule);
-  transition: color 0.18s ease, border-color 0.18s ease;
-}
-.past-roles a:hover { color: var(--accent); border-bottom-color: var(--accent); }
-.past-roles .sep { color: var(--faint); padding: 0 0.15em; }
 
 /* ---------- sidebar ---------- */
 
